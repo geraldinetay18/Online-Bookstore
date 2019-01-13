@@ -1,0 +1,133 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="Team10BookShop.SiteMaster" %>
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title><%: Page.Title %>- My Book Shop</title>
+    <link href="https://getbootstrap.com/docs/4.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link href="https://getbootstrap.com/docs/4.1/examples/carousel/carousel.css" rel="stylesheet">
+    
+    <asp:PlaceHolder runat="server">
+        <%: Scripts.Render("~/bundles/modernizr") %>
+    </asp:PlaceHolder>
+    <webopt:bundlereference runat="server" path="~/Content/css" />
+    <link href="Images/icon.png" rel="shortcut icon" type="image/x-icon" />
+
+</head>
+<body>
+
+    <form runat="server">
+        <asp:ScriptManager runat="server">
+            <Scripts>
+                <%--To learn more about bundling scripts in ScriptManager see https://go.microsoft.com/fwlink/?LinkID=301884 --%>
+                <%--Framework Scripts--%>
+                <asp:ScriptReference Name="MsAjaxBundle" />
+                <asp:ScriptReference Name="jquery" />
+                <asp:ScriptReference Name="bootstrap" />
+                <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
+                <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
+                <asp:ScriptReference Name="MenuStandards.js" Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
+                <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />
+                <asp:ScriptReference Name="DetailsView.js" Assembly="System.Web" Path="~/Scripts/WebForms/DetailsView.js" />
+                <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
+                <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
+                <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
+                <asp:ScriptReference Name="WebFormsBundle" />
+                <%--Site Scripts--%>
+            </Scripts>
+        </asp:ScriptManager>
+        
+        <header>
+
+            <nav class="navbar navbar-expand-md navbar-light navbar-fixed-top border-bottom shadow-sm bg-light">
+                <div class="container">
+
+                    <div class="navbar-header">
+                        <a  class="navbar-brand mr-auto" runat="server"  href="Anonymous/Browsing2">
+                            <span class="navbar-logo">
+                                <img src="../Images/icon.png" alt="icon" style="height: 3.0rem;">
+                            </span> Book Shop
+                        </a>
+                        <div class="d-flex ml-auto">
+                            <button type="button" class="navbar-toggle ml-auto" data-toggle="collapse" data-target=".navbar-collapse" style="color:red">
+                            <span class="navbar-toggler-icon" style="color:red"></span>
+                                <%--To learn more about bundling scripts in ScriptManager see https://go.microsoft.com/fwlink/?LinkID=301884 --%>
+                            </button>                        
+                        </div>
+                        
+                    </div>
+
+                    <div class="navbar-collapse collapse">
+                        <div class="col-xs-10 col-md-8 " style="padding-top:9px">
+                            <%--Framework Scripts--%>
+                        </div>
+
+                        <asp:LoginView runat="server" ViewStateMode="Disabled">
+                            <AnonymousTemplate>
+                                <ul class="nav navbar-nav navbar-right">
+                                    <%--<li><a runat="server" >Cart</a></li>--%>
+                                    <li><asp:UpdatePanel ID="UpdatePanel1" runat="server" style="padding-top:10px" href="Anonymous/CheckOut.aspx">
+                                        <ContentTemplate>
+                                        <asp:Button ID="cartcount" runat="server" Text="Cart | " class="btn btn-primary" OnClick="cartcount_Click" />
+                                        </ContentTemplate>
+                                        </asp:UpdatePanel>
+                                    </li>
+                                    
+                                    <li><a runat="server" href="~/Account/Register">Register</a></li>
+                                    <li><a runat="server" href="~/Account/Login">Log in</a></li>
+                                </ul>
+                            </AnonymousTemplate>
+                            <LoggedInTemplate>
+                                <ul class="nav navbar-nav navbar-right">
+                                    <%--<li><a runat="server">Cart</a></li>--%>
+                                    <li> <a runat="server" href="Owner/OwnerUpdateInventory">Update Inventory
+                                         </a></li>
+                                    <li><a runat="server" href="Owner/OwnerAddBook">Add New Book</a></li>
+
+                                    <li><asp:UpdatePanel ID="UpdatePanel2" runat="server" style="padding-top:10px" href="Anonymous/CheckOut.aspx">
+                                        <ContentTemplate>
+                                        <asp:Button ID="cartcount1" runat="server" Text="Cart | " class="btn btn-primary" OnClick="cartcount_Click" />
+                                        </ContentTemplate>
+                                        </asp:UpdatePanel>
+                                    </li>
+                                    <li><a runat="server" href="~/Account/Manage" title="Manage your account">Hello, <%: Context.User.Identity.GetUserName()  %> !</a></li>
+                                    <li>
+                                        <asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="Log off" LogoutPageUrl="Anonymous/Browsing2" OnLoggingOut="Unnamed_LoggingOut" />
+                                    </li>
+                                </ul>
+                            </LoggedInTemplate>
+                        </asp:LoginView>
+
+                        
+                    </div>
+
+                    
+
+                </div>
+
+            </nav>
+        </header>
+        <div style="padding-bottom:30px">
+            
+        </div>
+        <div class="container body-content">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+
+
+            </asp:ContentPlaceHolder>
+            <hr />
+            <footer>
+                <p>&copy; <%--<span class="icon-bar"></span>
+                            <span class="icon-bar"></span>--%>- My Library of Knowledge</p>
+            </footer>
+        </div>
+    </form>
+</body>
+</html>
